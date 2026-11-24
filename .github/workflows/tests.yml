@@ -1,0 +1,37 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check src tests scripts
+
+      # No network and no StatsBomb data: every test runs off the committed synthetic
+      # fixture in tests/fixtures/. Redistributing the real data would breach clause
+      # 1.2.1 of the StatsBomb Public Data User Agreement.
+      - name: Tests
+        run: pytest -q
+
+      - name: Fixture is reproducible from its generator
+        run: |
+          python tests/make_fixtures.py
+          git diff --exit-code tests/fixtures/
