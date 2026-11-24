@@ -315,13 +315,18 @@ here is out of fold.
 | Premier League 2003/04 | 2 | 2 | 1.96 | 4 | 2.88 | −0.92 |
 | Champions League 2011/12 | 1 | 1 | 0.29 | 1 | 2.17 | −1.88 |
 
-The 2015/16 row is the interesting one: the defending champions finished 10th with a
-goal difference of +3, and the model says their underlying numbers were +4.2 — slightly
-better than their results, and nowhere near a title-winning team's. They under-performed
-their xG at both ends (51 goals from 53.9 xG for, 48 conceded from 49.8 xG against), so
-the collapse was mostly a genuinely mediocre season rather than bad luck in front of
-goal. Note the other two rows cover 2 and 1 matches respectively: those are individual
-matches in the open data, not seasons, and should not be read as anything.
+The 2015/16 row is the interesting one: the defending champions finished tenth, and the
+model says their underlying numbers were an xG difference of +4.2 across 38 matches —
+better than mid-table results suggest, but nowhere near a title-winning team's. They
+came in slightly under their xG at both ends (51 goals from 53.9 xG for, 48 conceded
+from 49.8 against), which is small enough to be noise over one season. The collapse was
+mostly a genuinely mediocre team, not bad luck in front of goal.
+
+Two caveats on those counts. They cover **non-penalty shots only**: including penalties
+the same 38 matches hold 55 Chelsea goals and 51 conceded. And own goals are not shot
+events at all, so neither figure matches an official season table. Finally, the other
+two rows cover 2 and 1 matches respectively — individual matches that happen to be in
+the open data, not seasons, and they should not be read as anything.
 
 ## Limitations
 
@@ -338,7 +343,7 @@ matches in the open data, not seasons, and should not be read as anything.
 - **Finishing residuals are mostly noise**, as above, and the Chelsea tables are one
   season.
 - **The MLP's edge is inside the error bars.** On this data a well-specified logistic
-  model gets within 0.005 log loss of a neural one, which is consistent with the
+  model gets within about 0.005 log loss of a neural one, which is consistent with the
   published view that event-data xG has a low ceiling. The MLP is here because the spec
   asked for it and because it is honestly reported, not because it is the better choice.
 
