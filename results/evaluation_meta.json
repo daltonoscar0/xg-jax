@@ -1,0 +1,19 @@
+{
+  "n_boot": 1000,
+  "n_bins": 10,
+  "temperature": 0.9841904640197754,
+  "models": [
+    "baseline",
+    "logistic",
+    "mlp",
+    "mlp_temp",
+    "statsbomb"
+  ],
+  "splits": {
+    "train": 63126,
+    "val": 13444,
+    "test": 13359,
+    "holdout": 9817
+  },
+  "statsbomb_xg_coverage": 1.0
+}

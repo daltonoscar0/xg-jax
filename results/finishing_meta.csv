@@ -1,0 +1,2 @@
+model,folds,shots_scored,total_goals,total_crossfit_xg,ratio,players_with_min_shots,players_with_interval_clear_of_zero
+logistic,5,99746,10233,10330.3,0.9906,925,99

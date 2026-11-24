@@ -1,0 +1,5 @@
+n_shots,mean_xg_per_shot,sd_goals_minus_xg,95pct_band,edge_per_shot,shots_to_detect_edge
+30,0.1036,1.516,+/- 2.97 goals,0.02,736
+60,0.1036,2.145,+/- 4.20 goals,0.02,736
+100,0.1036,2.769,+/- 5.43 goals,0.02,736
+300,0.1036,4.795,+/- 9.40 goals,0.02,736

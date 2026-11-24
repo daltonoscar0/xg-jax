@@ -1,0 +1,4 @@
+comp_season,matches_in_data,goals_for,xg_for,goals_against,xg_against,xg_difference,shots_for,shots_against
+Champions League 2011/2012,1,1,0.29,1,2.17,-1.88,9,39
+Premier League 2003/2004,2,2,1.96,4,2.88,-0.92,23,27
+Premier League 2015/2016,38,51,53.93,48,49.76,4.17,530,489
