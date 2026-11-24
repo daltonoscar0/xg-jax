@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 
 import pytest
 from typer.testing import CliRunner
@@ -13,6 +14,19 @@ from xg.features import FeatureStats, build_frame, design_matrix
 from xg.train import TrainConfig, fit, save_model
 
 runner = CliRunner()
+
+_ANSI = re.compile(r"\x1b\[[0-9;]*[a-zA-Z]")
+_BOX = re.compile(r"[\u2500-\u257f]")
+
+
+def flat(output: str) -> str:
+    """Error text with the styling, the box and the line wrapping taken out.
+
+    Typer draws errors in a rich panel wrapped to the terminal width, so a phrase can
+    land either side of a newline depending on how wide the terminal happens to be --
+    which is exactly how this assertion passed locally and failed in CI.
+    """
+    return " ".join(_BOX.sub(" ", _ANSI.sub("", output)).split())
 
 
 @pytest.fixture
@@ -53,14 +67,15 @@ def test_each_command_has_its_own_help(command):
 def test_train_rejects_an_unknown_model():
     result = runner.invoke(app, ["train", "--model", "transformer"])
     assert result.exit_code != 0
-    assert "unknown model" in result.output
+    assert "unknown model" in flat(result.output)
 
 
 def test_shot_without_a_trained_model_says_so(tmp_path, monkeypatch):
     monkeypatch.setattr(cli, "models_dir", lambda: tmp_path)
     result = runner.invoke(app, ["shot", "--x", "108", "--y", "40"])
     assert result.exit_code != 0
-    assert "xg train" in result.output
+    assert "no trained logistic" in flat(result.output)
+    assert "xg train" in flat(result.output)
 
 
 def test_shot_scores_a_penalty_spot_shot(installed_model):
