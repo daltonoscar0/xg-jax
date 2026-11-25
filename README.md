@@ -21,7 +21,9 @@ Data provided by StatsBomb. See [Data and attribution](#data-and-attribution).
 ```bash
 git clone https://github.com/daltonoscar0/xg-jax && cd xg-jax
 python3.11 -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
+
+pip install -r requirements.lock && pip install -e . --no-deps   # the pinned set
+# or: pip install -e ".[dev]"                                     # latest in range
 
 xg fetch                      # ~1.7 GB, stays compressed; records the commit used
 xg train --model baseline     # logistic on distance + angle
@@ -37,6 +39,12 @@ xg shot --x 108 --y 40 --body-part right_foot
 Every number in this README comes from a run of exactly those commands, saved under
 [`results/`](results/). CPU only; the whole pipeline takes about half an hour on a laptop,
 most of it downloading and reading the data.
+
+[`requirements.lock`](requirements.lock) is the exact set those runs used — 46 packages
+with versions, `sportio` pinned to a commit rather than a branch. `pyproject.toml` keeps
+the loose ranges a library should declare, so both installs above work; the lock is what
+makes 0.2748 a number you can get back rather than a number I once got. CI installs from
+it, regenerate it with `scripts/lock.sh`.
 
 ## Results
 
